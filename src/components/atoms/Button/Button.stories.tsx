@@ -1,33 +1,19 @@
-// import type { Meta } from '@storybook/react';
-// import Button, { ButtonProps } from './Button';
-
-// const meta: Meta = {
-//   title: 'Components/atoms/Button',
-//   component: Button
-// }
-
-// export default meta;
-
-// type Story = Meta<typeof Button>;
-
-// export const Default: Story = {
-//   args: {
-//     text: 'Default',
-//     variant: 'primary'
-//   }
-// }
-
 import type { Meta, StoryObj } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import Button, { ButtonProps, EButtonVariants } from './Button';
 
-import Button, { ButtonProps } from './Button';
+const buttonVariants: EButtonVariants[] = ["danger", "primary", "secondary", "warning"];
 
 const meta: Meta<ButtonProps> = {
   component: Button,
   argTypes: {
     variant: {
-      options: ['primary', 'secondary'],
+      options: buttonVariants,
       control: { type: 'inline-radio' },
     },
+    onClick: {
+      control: false,
+    }
   },
 };
 
@@ -37,9 +23,10 @@ type Story = StoryObj<typeof Button>;
 
 export const Default: Story = {
   args: {
-    text: 'Default',
+    children: 'Default',
     variant: 'primary',
     loading: false,
     disabled: false,
+    onClick: action('clicked'),
   },
 };

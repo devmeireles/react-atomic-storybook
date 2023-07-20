@@ -1,21 +1,30 @@
-import React, { HTMLAttributes } from 'react'
+import React, { HTMLAttributes, ReactNode } from 'react'
+import { StyledButton } from './Button.styles';
+
+export type EButtonVariants =
+  "primary" |
+  "secondary" |
+  "danger" |
+  "warning";
 
 export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
-  variant: 'primary' | 'secondary';
+  variant: EButtonVariants;
   onClick?: () => void;
-  text: string;
   disabled?: boolean;
-  loading?: boolean
+  loading?: boolean;
+  children: ReactNode;
 }
 
-const Button: React.FC<ButtonProps> = ({ text, variant = "primary", onClick, disabled, loading, ...props }) => {
+const Button: React.FC<ButtonProps> = ({ variant = "primary", onClick, disabled, loading, children, ...props }) => {
   return (
-    <button
-      {...props}
+    <StyledButton
+      onClick={onClick}
+      variant={variant}
       disabled={disabled || loading}
+      {...props}
     >
-      {text}
-    </button>
+      {children}
+    </StyledButton>
   )
 }
 
